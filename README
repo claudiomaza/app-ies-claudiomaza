@@ -67,7 +67,7 @@ Para clonar el repositorio, configurar y ejecutar el proyecto, sigue estos senci
 
 1.  Clona el repositorio en tu máquina local.
     ```bash
-    git clone <URL_DEL_REPOSITORIO>
+    https://github.com/claudiomaza/app-ies-claudiomaza.git
     ```
 2.  Navega al directorio raíz del proyecto donde se encuentra el archivo `docker-compose.yml`.
     ```bash
