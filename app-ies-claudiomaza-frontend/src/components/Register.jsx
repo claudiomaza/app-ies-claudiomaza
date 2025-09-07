@@ -1,14 +1,22 @@
 // src/components/Register.jsx
 import React, { useState, useContext } from 'react';
+import CompleteProfile from './CompleteProfile';
+import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import './Register.css';
 
 import { AuthContext } from '../AuthContext';
 
 const Register = () => {
+  const [nombre, setNombre] = useState('');
+  const [apellido, setApellido] = useState('');
+  const [dni, setDni] = useState('');
+  const [telefono, setTelefono] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showVerification, setShowVerification] = useState(false);
+  const [showCompleteProfile, setShowCompleteProfile] = useState(false);
+  const [socialData, setSocialData] = useState({});
   const [verificationCode, setVerificationCode] = useState('');
   const navigate = useNavigate();
   const PREDEFINED_CODE = '123456'; // Código de verificación de prueba
@@ -21,45 +29,93 @@ const Register = () => {
     setShowVerification(true);
   };
 
-  const handleVerification = (e) => {
+  const handleVerification = async (e) => {
     e.preventDefault();
     // Validar el código de verificación (TAREA3)
     if (verificationCode === PREDEFINED_CODE) {
-      // Almacenar usuario en la memoria del navegador (localStorage)
-      localStorage.setItem('user', JSON.stringify({ email, password }));
-      localStorage.setItem('isAuthenticated', 'true');
-      alert('¡Registro y verificación exitosos! Redirigiendo a la pantalla de inicio.');
-      navigate('/activities'); // Redirige a la lista de actividades
+      try {
+        // Registrar usuario en el backend
+        const response = await axios.post('http://localhost:3001/usuarios', {
+          nombre,
+          apellido,
+          dni,
+          telefono,
+          email,
+          password
+        });
+        localStorage.setItem('user', JSON.stringify(response.data));
+        localStorage.setItem('isAuthenticated', 'true');
+        setIsAuthenticated(true);
+        alert('¡Registro y verificación exitosos! Redirigiendo a la pantalla de inicio.');
+        navigate('/activities');
+      } catch (error) {
+        alert('Error al registrar usuario en el backend.');
+      }
     } else {
       alert('Código de verificación incorrecto. Inténtelo de nuevo.');
     }
   };
 
   const handleSocialLogin = () => {
-    // Simular inicio de sesión con redes sociales (TAREA4)
-    localStorage.setItem('isAuthenticated', 'true');
-    setIsAuthenticated(true);
-    alert('Inicio de sesión con redes sociales simulado. Redirigiendo...');
-    navigate('/activities');
+    // Simular obtención de datos desde redes sociales
+    const socialUser = {
+      email: '', // Simular que solo se obtiene el email
+      nombre: '',
+      apellido: '',
+      dni: '',
+      telefono: ''
+    };
+    setSocialData(socialUser);
+    setShowCompleteProfile(true);
   };
 
   return (
     <div className="auth-container">
       <h2>Registro de Usuario</h2>
-      {!showVerification ? (
+      {showCompleteProfile ? (
+        <CompleteProfile initialData={socialData} />
+      ) : !showVerification ? (
         <form onSubmit={handleRegister}>
+          <input
+            type="text"
+            placeholder="Nombre"
+            value={nombre}
+            onChange={e => setNombre(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Apellido"
+            value={apellido}
+            onChange={e => setApellido(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="DNI"
+            value={dni}
+            onChange={e => setDni(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Teléfono"
+            value={telefono}
+            onChange={e => setTelefono(e.target.value)}
+            required
+          />
           <input
             type="email"
             placeholder="Correo electrónico"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             required
           />
           <input
             type="password"
             placeholder="Contraseña"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
           />
           <button type="submit">Registrar</button>

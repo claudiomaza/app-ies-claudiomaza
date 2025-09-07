@@ -43,6 +43,26 @@ server.post('/reservations', (req, res) => {
 // Usa el enrutador de json-server para las peticiones GET (para ver los datos)
 server.use(router);
 
+// Endpoint GET /usuarios para listar usuarios
+server.get('/usuarios', (req, res) => {
+    const dbPath = path.join(__dirname, 'db.json');
+    const dbData = JSON.parse(fs.readFileSync(dbPath));
+    res.json(dbData.usuarios || []);
+});
+
+// Endpoint POST /usuarios para registrar nuevos usuarios
+server.post('/usuarios', (req, res) => {
+    const dbPath = path.join(__dirname, 'db.json');
+    const dbData = JSON.parse(fs.readFileSync(dbPath));
+    const newUser = {
+        ...req.body,
+        id: Date.now()
+    };
+    dbData.usuarios.push(newUser);
+    fs.writeFileSync(dbPath, JSON.stringify(dbData, null, 2));
+    res.status(201).json(newUser);
+});
+
 // Inicia el servidor
 server.listen(3001, () => {
     console.log('JSON Server is running on port 3001');

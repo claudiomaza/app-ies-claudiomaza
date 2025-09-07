@@ -5,12 +5,21 @@ import Register from './components/Register';
 import Login from './components/Login';
 import { ActivitiesList } from './components/ActivitiesList';
 import { ActivityDetails } from './components/ActivityDetails';
-import { activities } from './data';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { AuthContext, AuthProvider } from './AuthContext'; // Importa el AuthProvider
 
 const AppContent = () => {
   const { isAuthenticated } = useContext(AuthContext); // Usa el contexto para el estado
+
+  const [activities, setActivities] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/activities')
+      .then(res => res.json())
+      .then(data => setActivities(data))
+      .catch(() => setActivities([]));
+  }, []);
 
   return (
     <div className="app-container">

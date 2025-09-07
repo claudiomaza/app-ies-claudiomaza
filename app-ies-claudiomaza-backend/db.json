@@ -1,5 +1,198 @@
 {
-  "activities": [],
+  "activities": [
+    {
+      "id": 1,
+      "title": "Clase de Yoga Sensorial",
+      "description": "Una experiencia inmersiva para conectar cuerpo y mente, explorando movimientos conscientes y la atención plena en cada postura.\n\nUbicación: Mendoza, Capital, Av. San Martín 1000",
+      "price": 45000,
+      "availability": "Disponible los martes y jueves",
+      "photoUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto=format&fit=crop"
+    },
+    {
+      "id": 2,
+      "title": "Escape Room de Desarrollo Personal",
+      "description": "Resuelve acertijos y desafíos en equipo para descubrir tu potencial oculto. Una aventura de autoconocimiento y liderazgo.\n\nUbicación: Buenos Aires, La Plata, Calle 12 345",
+      "price": 60000,
+      "availability": "Disponible los fines de semana",
+      "photoUrl": "https://images.pexels.com/photos/6329433/pexels-photo-6329433.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    },
+    {
+      "id": 3,
+      "title": "Cocina Transformacional",
+      "description": "Aprende a nutrirte de forma consciente mientras descubres los sabores de tu intuición. Un taller que conecta la alimentación con la mente.\n\nUbicación: Córdoba, Nueva Córdoba, Av. Vélez Sarsfield 800",
+      "price": 55000,
+      "availability": "Disponible los sábados por la tarde",
+      "photoUrl": "https://images.pexels.com/photos/5690554/pexels-photo-5690554.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    },
+    {
+      "id": 4,
+      "title": "Meditación Sonora",
+      "description": "Déjate llevar por un viaje de sanación a través de los sonidos de cuencos tibetanos y gongs. Libera la tensión y encuentra la paz interior.\n\nUbicación: Santa Fe, Rosario, Bv. Oroño 1500",
+      "price": 40000,
+      "availability": "Disponible los miércoles por la noche",
+      "photoUrl": "https://images.pexels.com/photos/1769493/pexels-photo-1769493.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    },
+    {
+      "id": 5,
+      "title": "Taller de Fotografía Creativa",
+      "description": "Explora tu creatividad capturando momentos únicos en escenarios naturales.\n\nUbicación: Mendoza, Godoy Cruz, Calle Belgrano 200",
+      "price": 48000,
+      "availability": "Disponible los sábados",
+      "photoUrl": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80",
+      "category": "Arte",
+      "location": "Mendoza"
+    },
+    {
+      "id": 6,
+      "title": "Clínica de Fútbol Infantil",
+      "description": "Entrenamiento y diversión para niños y niñas con instructores profesionales.\n\nUbicación: Buenos Aires, San Isidro, Av. Libertador 999",
+      "price": 35000,
+      "availability": "Disponible los domingos",
+      "photoUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      "category": "Deporte",
+      "location": "Buenos Aires"
+    },
+    {
+      "id": 7,
+      "title": "Curso de Programación Web",
+      "description": "Aprende a crear sitios web modernos desde cero con HTML, CSS y JavaScript.\n\nUbicación: Córdoba, General Paz, Calle 25 de Mayo 456",
+      "price": 70000,
+      "availability": "Disponible los lunes y miércoles",
+      "photoUrl": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
+      "category": "Tecnología",
+      "location": "Córdoba"
+    },
+    {
+      "id": 8,
+      "title": "Taller de Cerámica",
+      "description": "Descubre el arte de la cerámica y crea tus propias piezas únicas.\n\nUbicación: Santa Fe, Santa Fe, Calle San Martín 321",
+      "price": 42000,
+      "availability": "Disponible los viernes",
+      "photoUrl": "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80",
+      "category": "Arte",
+      "location": "Santa Fe"
+    },
+    {
+      "id": 9,
+      "title": "Jornada de Senderismo",
+      "description": "Recorre paisajes increíbles y conecta con la naturaleza en grupo.\n\nUbicación: Neuquén, San Martín de los Andes, Ruta 40 km 120",
+      "price": 38000,
+      "availability": "Disponible los sábados y domingos",
+      "photoUrl": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80",
+      "category": "Aventura",
+      "location": "Neuquén"
+    },
+    {
+      "id": 10,
+      "title": "Taller de Cocina Regional",
+      "description": "- Aprender recetas típicas de la gastronomía argentina con chefs locales.\n- Disponible los jueves\n- Precio: $50000\n- Ubicación: Salta, Capital, Av. Belgrano 1234",
+      "price": 50000,
+      "availability": "Disponible los jueves",
+      "photoUrl": "https://images.pexels.com/photos/461382/pexels-photo-461382.jpeg?auto=compress&fit=crop&w=800&q=80",
+      "category": "Gastronomía",
+      "location": "Salta"
+    },
+    {
+      "id": 11,
+      "title": "Taller de Pintura al Óleo",
+      "description": "Aprende técnicas de pintura al óleo con artistas reconocidos.\n\nUbicación: Buenos Aires, San Isidro, Av. Libertador 999",
+      "price": 52000,
+      "availability": "Disponible los martes",
+      "photoUrl": "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
+      "category": "Arte",
+      "location": "Buenos Aires"
+    },
+    {
+      "id": 12,
+      "title": "Curso de Robótica para Jóvenes",
+      "description": "Construye y programa robots en equipo.\n\nUbicación: Córdoba, General Paz, Calle 25 de Mayo 456",
+      "price": 65000,
+      "availability": "Disponible los sábados",
+      "photoUrl": "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
+      "category": "Tecnología",
+      "location": "Córdoba"
+    },
+    {
+      "id": 13,
+      "title": "Taller de Teatro Improvisado",
+      "description": "Desarrolla tu creatividad y expresión en el escenario.\n\nUbicación: Mendoza, Godoy Cruz, Calle San Martín 321",
+      "price": 47000,
+      "availability": "Disponible los viernes",
+      "photoUrl": "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80",
+      "category": "Arte",
+      "location": "Mendoza"
+    },
+    {
+      "id": 14,
+      "title": "Jornada de Observación Astronómica",
+      "description": "- Observa el cielo nocturno con telescopios profesionales.\n- Disponible los sábados por la noche\n- Precio: $39000\n- Ubicación: San Juan, Rawson, Ruta 40 km 120",
+      "price": 39000,
+      "availability": "Disponible los sábados por la noche",
+      "photoUrl": "https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg?auto=compress&fit=crop&w=800&q=80",
+      "category": "Ciencia",
+      "location": "San Juan"
+    },
+    {
+      "id": 15,
+      "title": "Taller de Fotografía de Naturaleza",
+      "description": "Captura la belleza natural en salidas grupales.\n\nUbicación: Misiones, Iguazú, Camino a Cataratas km 5",
+      "price": 51000,
+      "availability": "Disponible los domingos",
+      "photoUrl": "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80",
+      "category": "Arte",
+      "location": "Misiones"
+    },
+    {
+      "id": 16,
+      "title": "Curso de Cocina Vegana",
+      "description": "- Aprende recetas saludables y deliciosas.\n- Disponible los miércoles\n- Precio: $53000\n- Ubicación: Santa Fe, Rosario, Bv. Oroño 2000",
+      "price": 53000,
+      "availability": "Disponible los miércoles",
+      "photoUrl": "https://images.pexels.com/photos/461382/pexels-photo-461382.jpeg?auto=compress&fit=crop&w=800&q=80",
+      "category": "Gastronomía",
+      "location": "Santa Fe"
+    },
+    {
+      "id": 17,
+      "title": "Taller de Escritura Creativa",
+      "description": "- Desarrolla tu estilo literario con ejercicios prácticos.\n- Disponible los jueves\n- Precio: $44000\n- Ubicación: Tucumán, Yerba Buena, Av. Aconquija 1500",
+      "price": 44000,
+      "availability": "Disponible los jueves",
+      "photoUrl": "https://images.pexels.com/photos/256455/pexels-photo-256455.jpeg?auto=compress&fit=crop&w=800&q=80",
+      "category": "Literatura",
+      "location": "Tucumán"
+    },
+    {
+      "id": 18,
+      "title": "Curso de Primeros Auxilios",
+      "description": "Aprende técnicas básicas para emergencias.\n\nUbicación: Chubut, Comodoro Rivadavia, Calle Sarmiento 789",
+      "price": 42000,
+      "availability": "Disponible los lunes",
+      "photoUrl": "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
+      "category": "Salud",
+      "location": "Chubut"
+    },
+    {
+      "id": 19,
+      "title": "Jornada de Kayak",
+      "description": "Disfruta de la aventura en ríos y lagos.\n\nUbicación: Río Negro, Bariloche, Lago Nahuel Huapi",
+      "price": 56000,
+      "availability": "Disponible los sábados",
+      "photoUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      "category": "Aventura",
+      "location": "Río Negro"
+    },
+    {
+      "id": 20,
+      "title": "Taller de Huerta Orgánica",
+      "description": "Aprende a cultivar tus propios alimentos.\n\nUbicación: Entre Ríos, Paraná, Calle Urquiza 300",
+      "price": 41000,
+      "availability": "Disponible los domingos",
+      "photoUrl": "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
+      "category": "Naturaleza",
+      "location": "Entre Ríos"
+    }
+  ],
   "reservations": [
     {
       "activityId": 2,
@@ -14,6 +207,115 @@
       "id": 1757212114360,
       "confirmationCode": "CONF-936410000",
       "status": "pending"
+    },
+    {
+      "activityId": 1,
+      "paymentMethod": "credit_card",
+      "id": 1757254827275,
+      "confirmationCode": "CONF-8583610000",
+      "status": "pending"
+    },
+    {
+      "activityId": 1,
+      "paymentMethod": "credit_card",
+      "id": 1757257173353,
+      "confirmationCode": "CONF-2344910000",
+      "status": "pending"
+    },
+    {
+      "activityId": 3,
+      "nombre": "claudio maza",
+      "email": "claudio@gmail.com",
+      "telefono": "2616731273",
+      "codigoPago": "PAGO-41960",
+      "status": "pending",
+      "id": 1757273852830,
+      "confirmationCode": "CONF-2423310000"
+    },
+    {
+      "activityId": 2,
+      "nombre": "juan",
+      "apellido": "perez",
+      "dni": "34234543",
+      "telefono": "251526482832",
+      "email": "juanperez@gmail.com",
+      "codigoPago": "PAGO-81110",
+      "status": "pending",
+      "id": 1757274856807,
+      "confirmationCode": "CONF-2512110000"
+    },
+    {
+      "activityId": 5,
+      "nombre": "juan",
+      "apellido": "perez",
+      "dni": "34234543",
+      "telefono": "251526482832",
+      "email": "juanperez@gmail.com",
+      "codigoPago": "PAGO-53260",
+      "status": "pending",
+      "id": 1757275400615,
+      "confirmationCode": "CONF-6278810000"
+    },
+    {
+      "activityId": 11,
+      "nombre": "juan",
+      "apellido": "perez",
+      "dni": "34234543",
+      "telefono": "251526482832",
+      "email": "juanperez@gmail.com",
+      "codigoPago": "PAGO-95279",
+      "status": "pending",
+      "id": 1757275987722,
+      "confirmationCode": "CONF-3786110000"
+    },
+    {
+      "activityId": 1,
+      "nombre": "juan",
+      "apellido": "perez",
+      "dni": "34234543",
+      "telefono": "251526482832",
+      "email": "juanperez@gmail.com",
+      "codigoPago": "PAGO-81770",
+      "status": "pending",
+      "id": 1757276374397,
+      "confirmationCode": "CONF-2689810000"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": 1,
+      "nombre": "Juan Perez",
+      "email": "juan@example.com",
+      "telefono": "123456789"
+    },
+    {
+      "id": 2,
+      "nombre": "Maria Gomez",
+      "email": "maria@example.com",
+      "telefono": "987654321"
+    },
+    {
+      "email": "claudio@gmail.com",
+      "password": "1234",
+      "id": 3
+    },
+    {
+      "nombre": "claudio",
+      "apellido": "maza",
+      "dni": "33570855",
+      "telefono": "2616731273",
+      "email": "claudio@gmail.com",
+      "password": "123456",
+      "id": 4
+    },
+    {
+      "nombre": "juan",
+      "apellido": "perez",
+      "dni": "34234543",
+      "telefono": "251526482832",
+      "email": "juanperez@gmail.com",
+      "social": true,
+      "id": 5
     }
   ]
 }

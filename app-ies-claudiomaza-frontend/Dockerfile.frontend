@@ -1,6 +1,6 @@
 # 1. Primera etapa: Construir la aplicación
 # Usamos una imagen de Node.js para compilar el código de React/Angular/Vue
-FROM node:18.19.0-alpine AS builder
+FROM node:20.19.0-alpine AS builder
 
 # Establecemos el directorio de trabajo dentro del contenedor
 WORKDIR /app
