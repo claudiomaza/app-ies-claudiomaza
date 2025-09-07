@@ -1,0 +1,97 @@
+# Proyecto de Reservas - IES Claudio Maza
+
+Este proyecto es una aplicación de reserva simple que consta de un frontend y un backend, ambos encapsulados en **contenedores Docker** para facilitar su despliegue y gestión.
+
+### Tecnologías Utilizadas
+
+* **Node.js**: Entorno de ejecución de JavaScript.
+* **Express**: Framework web para Node.js.
+* **JSON Server**: Una API REST de simulación que utiliza un archivo JSON para gestionar los datos.
+
+* **Vite**: Herramienta de construcción para proyectos web modernos.
+* **JavaScript**: Lenguaje de programación.
+* **HTML & CSS**: Lenguajes de marcado y estilo.
+
+---
+
+### Despliegue
+
+**Docker & Docker Compose**: Herramientas de contenedorización para empaquetar y ejecutar la aplicación.
+
+---
+
+### Guía de Instalación de Docker
+
+Antes de continuar, asegúrate de tener **Docker** y **Docker Compose** instalados en tu sistema.
+
+#### Windows
+La forma más sencilla de instalar Docker en Windows es a través de **Docker Desktop**.
+1.  Descarga el instalador de Docker Desktop desde el [sitio web oficial de Docker](https://www.docker.com/products/docker-desktop/).
+2.  Sigue las instrucciones del instalador.
+3.  Una vez instalado, asegúrate de que Docker Desktop esté en ejecución.
+
+#### Linux
+Las instrucciones de instalación varían dependiendo de la distribución de Linux que utilices. Por lo general, los pasos son los siguientes:
+1.  Actualiza los paquetes de tu sistema.
+    ```bash
+    sudo apt-get update
+    ```
+2.  Instala los paquetes necesarios para permitir que `apt` use un repositorio a través de HTTPS.
+    ```bash
+    sudo apt-get install ca-certificates curl gnupg
+    ```
+3.  Añade la clave GPG oficial de Docker.
+    ```bash
+    sudo install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL [https://download.docker.com/linux/ubuntu/gpg](https://download.docker.com/linux/ubuntu/gpg) | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    ```
+4.  Configura el repositorio de Docker.
+    ```bash
+    echo \
+    "deb [arch="$(dpkg --print-arch)" signed-by=/etc/apt/keyrings/docker.gpg] [https://download.docker.com/linux/ubuntu](https://download.docker.com/linux/ubuntu) \
+    "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    ```
+5.  Instala **Docker Engine**, **Docker CLI** y **Docker Compose**.
+    ```bash
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    ```
+Para otras distribuciones como Fedora, CentOS o Arch, consulta la documentación oficial de Docker.
+
+---
+
+### Pasos para la Instalación y Ejecución
+
+Para clonar el repositorio, configurar y ejecutar el proyecto, sigue estos sencillos pasos:
+
+1.  Clona el repositorio en tu máquina local.
+    ```bash
+    git clone <URL_DEL_REPOSITORIO>
+    ```
+2.  Navega al directorio raíz del proyecto donde se encuentra el archivo `docker-compose.yml`.
+    ```bash
+    cd nombre_del_repositorio
+    ```
+3.  Ejecuta el siguiente comando para construir las imágenes de Docker y levantar los contenedores.
+    ```bash
+    docker-compose up --build
+    ```
+Este comando hará lo siguiente:
+* Construirá las imágenes de Docker para el frontend y el backend.
+* Iniciará el contenedor del backend en el puerto `3001` y el del frontend en el puerto `8080`.
+* Vinculará el archivo de base de datos `db.json` de tu máquina local con el contenedor del backend para garantizar que los datos se guarden de forma persistente.
+
+---
+
+### Acceso a la Aplicación
+
+Una vez que los contenedores estén en funcionamiento, puedes acceder a la aplicación de la siguiente manera:
+* **Frontend**: Abre tu navegador y navega a `http://localhost:8080`.
+* **API del Backend**: La API está disponible en `http://localhost:3001`.
+
+---
+
+### Persistencia de Datos
+
+El backend utiliza `json-server` para gestionar los datos. El archivo `db.json` en la carpeta `app-ies-claudiomaza-backend` está vinculado directamente al contenedor de Docker. Esto significa que cualquier reserva que se haga o cualquier cambio en los datos se guardará en tu máquina local, persistiendo incluso si los contenedores se detienen o se eliminan.

@@ -1,0 +1,20 @@
+# Usamos una imagen base de Node.js
+FROM node:18.19.0-alpine
+
+# Establecemos el directorio de trabajo
+WORKDIR /app
+
+# Copiamos los archivos de configuraciÃ³n
+COPY package*.json ./
+
+# Instalamos las dependencias
+RUN npm install
+
+# Copiamos todos los archivos del proyecto al contenedor
+COPY . .
+
+# Expone el puerto que usa el servidor Express
+EXPOSE 3001
+
+# Comando para iniciar el servidor usando el script 'start' de package.json
+CMD ["npm", "start"]

@@ -1,0 +1,19 @@
+{
+  "activities": [],
+  "reservations": [
+    {
+      "activityId": 2,
+      "paymentMethod": "credit_card",
+      "id": 1757212089331,
+      "confirmationCode": "CONF-520110000",
+      "status": "pending"
+    },
+    {
+      "activityId": 2,
+      "paymentMethod": "credit_card",
+      "id": 1757212114360,
+      "confirmationCode": "CONF-936410000",
+      "status": "pending"
+    }
+  ]
+}
