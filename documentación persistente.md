@@ -35,3 +35,5 @@
 3. Accede a la API del backend en [http://localhost:3001](http://localhost:3001)
 
 Puedes probar el registro de usuarios, la navegación por actividades y la reserva con generación de código de pago.
+
+

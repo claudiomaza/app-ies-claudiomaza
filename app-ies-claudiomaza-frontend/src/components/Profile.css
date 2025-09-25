@@ -1,0 +1,300 @@
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.profile-section {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+}
+
+.profile-section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--gray-900);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profile-info p {
+  margin: 0.5rem 0;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+}
+
+.profile-info strong {
+  color: var(--gray-900);
+  min-width: 120px;
+  margin-right: 1rem;
+  font-weight: 500;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+}
+
+.edit-form input {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  color: var(--gray-900);
+  transition: all 0.2s;
+}
+
+.edit-form input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 2px var(--primary-100);
+}
+
+.edit-form input.error {
+  border-color: var(--error-500);
+  background-color: var(--error-50);
+}
+
+.edit-form input.error:focus {
+  box-shadow: 0 0 0 2px var(--error-100);
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: var(--primary-600);
+  color: white;
+}
+
+button:hover {
+  background-color: var(--primary-700);
+}
+
+button.cancel-button {
+  background-color: var(--gray-500);
+}
+
+button.cancel-button:hover {
+  background-color: var(--gray-600);
+}
+
+.error-message,
+.success-message {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.error-message {
+  background-color: var(--error-50);
+  color: var(--error-600);
+  border: 1px solid var(--error-200);
+}
+
+.success-message {
+  background-color: var(--success-50);
+  color: var(--success-600);
+  border: 1px solid var(--success-200);
+}
+
+.activities-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .activities-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.hosting-activities,
+.participating-activities {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.section-header h3 {
+  margin: 0;
+  color: var(--gray-900);
+  font-size: 1.25rem;
+}
+
+.create-button {
+  background-color: var(--success-600);
+}
+
+.create-button:hover {
+  background-color: var(--success-700);
+}
+
+.activity-form-container {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--gray-50);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--gray-200);
+}
+
+.activity-card {
+  background-color: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+}
+
+.activity-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.activity-header h4 {
+  margin: 0;
+  color: var(--gray-900);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.activity-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.activity-actions button {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.delete-button {
+  background-color: var(--error-600);
+}
+
+.delete-button:hover {
+  background-color: var(--error-700);
+}
+
+.activity-card p {
+  color: var(--gray-700);
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.activity-card strong {
+  color: var(--gray-900);
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+/* Calendar and time inputs */
+input[type="date"],
+input[type="time"] {
+  appearance: none;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  color: var(--gray-900);
+  background-color: white;
+  width: 100%;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+input[type="time"]::-webkit-datetime-edit-ampm-field {
+  display: none;
+}
+
+.activity-form {
+  background-color: var(--gray-50);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--gray-200);
+}
+
+.activity-form h3 {
+  margin-top: 0;
+  color: var(--gray-900);
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.activity-form input,
+.activity-form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--gray-900);
+  transition: all 0.2s;
+}
+
+.activity-form input:focus,
+.activity-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 2px var(--primary-100);
+}
+
+.activity-form textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}

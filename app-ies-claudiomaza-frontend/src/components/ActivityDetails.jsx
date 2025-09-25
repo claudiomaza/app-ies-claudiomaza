@@ -1,88 +1,110 @@
-// src/components/ActivityDetails.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Importa axios
+import { useAuth } from '../AuthContext';
+import ReservationForm from './ReservationForm';
+import axios from 'axios';
 import './ActivityDetails.css';
 
-export const ActivityDetails = ({ activities }) => {
+const ActivityDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const activity = activities.find(act => act.id === parseInt(id));
+  const { user } = useAuth();
+  const [activity, setActivity] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [existingReservation, setExistingReservation] = useState(null);
 
-  if (!activity) {
-    return <div>Actividad no encontrada.</div>;
-  }
+  useEffect(() => {
+    const fetchActivity = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/activities/${id}`);
+        setActivity(response.data);
+      } catch (error) {
+        console.error('Error al obtener la actividad:', error);
+        setError('Error al cargar la actividad. Por favor, intente nuevamente.');
+      }
+    };
 
-  // Obtener datos del usuario autenticado
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const [nombre, setNombre] = useState(user.nombre || '');
-  const [apellido, setApellido] = useState(user.apellido || '');
-  const [dni, setDni] = useState(user.dni || '');
-  const [telefono, setTelefono] = useState(user.telefono || '');
-  const [email, setEmail] = useState(user.email || '');
-  const [codigoPago, setCodigoPago] = useState('');
-  const [reservaCreada, setReservaCreada] = useState(false);
+    const checkReservation = async () => {
+      if (user && activity) {
+        try {
+          const headers = { 'Authorization': 'Bearer ' + btoa(JSON.stringify(user)) };
+          const response = await axios.get(
+            `http://localhost:3001/users/reservations/${user.id}`,
+            { headers }
+          );
+          const userReservations = response.data;
+          const reservation = userReservations.find(r => r.activityId === parseInt(id));
+          if (reservation) {
+            setExistingReservation(reservation);
+          }
+        } catch (error) {
+          if (error.response?.status === 401) {
+            navigate('/login');
+          } else {
+            console.error('Error al verificar reserva:', error);
+          }
+        }
+      }
+      setLoading(false);
+    };
 
-  const handleReserva = async (e) => {
-    e.preventDefault();
-    // Simular generación de código de pago
-    const codigo = 'PAGO-' + Math.floor(Math.random() * 90000 + 10000);
-    setCodigoPago(codigo);
+    fetchActivity();
+    checkReservation();
+  }, [id, user]);
 
-    // Crear reserva en backend (sin acreditar pago aún)
-    try {
-      const response = await axios.post('http://localhost:3001/reservations', {
-        activityId: activity.id,
-        nombre,
-        apellido,
-        dni,
-        telefono,
-        email,
-        codigoPago: codigo,
-        status: 'pendiente'
-      });
-      setReservaCreada(true);
-      alert(`Reserva generada. Código de pago: ${codigo}. Cuando se acredite el pago, la reserva se completará.`);
-      // Opcional: guardar reserva en localStorage
-      const currentReservations = JSON.parse(localStorage.getItem('reservations') || '[]');
-      localStorage.setItem('reservations', JSON.stringify([...currentReservations, response.data]));
-    } catch (error) {
-      alert('Error al crear la reserva.');
-    }
+  const handleReservationSubmit = (newReservation) => {
+    setExistingReservation(newReservation);
   };
 
+  if (loading) {
+    return <div className="loading">Cargando...</div>;
+  }
+
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
+
+  if (!activity) {
+    return <div className="error">La actividad no existe.</div>;
+  }
+
   return (
-    <div className="activity-details-container">
+    <div className="activity-details">
       <h2>{activity.title}</h2>
-      <img src={activity.photoUrl} alt={activity.title} className="activity-image" />
-        {/* Descripción detallada: todas las líneas de la descripción */}
-        <div className="activity-description-detail">
-          {activity.description.split('\n').map((line, idx) => (
-            <div key={idx}>{line}</div>
+      <div className="info-section">
+        <div className="photos">
+          {activity.photos.map((photo, index) => (
+            <img key={index} src={photo} alt={`${activity.title} - ${index + 1}`} />
           ))}
         </div>
-  <p><strong>Precio:</strong> ${activity.price}</p>
-  <p><strong>Disponibilidad:</strong> {activity.availability}</p>
-      <form onSubmit={handleReserva} className="reservation-form" style={{display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '400px', margin: '0 auto'}}>
-        <h3>Formulario de Reserva</h3>
-        <input type="text" placeholder="Nombre" value={nombre} onChange={e => setNombre(e.target.value)} required />
-        <input type="text" placeholder="Apellido" value={apellido} onChange={e => setApellido(e.target.value)} required />
-        <input type="text" placeholder="DNI" value={dni} onChange={e => setDni(e.target.value)} required />
-        <input type="text" placeholder="Teléfono" value={telefono} onChange={e => setTelefono(e.target.value)} required />
-        <input type="email" placeholder="Correo electrónico" value={email} onChange={e => setEmail(e.target.value)} required />
-        <button type="submit" className="pay-button" disabled={reservaCreada} style={{marginTop: '16px'}}>
-          Generar Reserva
-        </button>
-        <button type="button" className="cancel-button" style={{marginTop: '8px'}} onClick={() => navigate('/activities')}>
-          Volver
-        </button>
-      </form>
-      {codigoPago && (
-        <div className="codigo-pago-info">
-          <p><strong>Código de pago generado:</strong> {codigoPago}</p>
-          <p>La reserva se completará cuando se acredite el pago. (Simulación)</p>
+        <p className="description">{activity.description}</p>
+        <p><strong>Precio:</strong> ${activity.price}</p>
+        <p><strong>Horario:</strong> {activity.time}</p>
+        <p><strong>Días:</strong> {activity.daysOfWeek.join(', ')}</p>
+        <p><strong>Ubicación:</strong> {activity.location.direccion}, {activity.location.departamento}, {activity.location.provincia}</p>
+      </div>
+
+      {user ? (
+        <ReservationForm
+          activity={activity}
+          existingReservation={existingReservation}
+          onSubmit={handleReservationSubmit}
+        />
+      ) : (
+        <div className="login-prompt">
+          <p>Debes iniciar sesión para reservar esta actividad.</p>
+          <button onClick={() => navigate('/login')} className="primary-button">
+            Iniciar Sesión
+          </button>
         </div>
       )}
+
+      <button type="button" className="secondary-button" onClick={() => navigate('/activities')}>
+        Volver al Listado
+      </button>
     </div>
   );
 };
+
+export default ActivityDetails;

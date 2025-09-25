@@ -1,128 +1,70 @@
-// src/components/Register.jsx
-import React, { useState, useContext } from 'react';
-import CompleteProfile from './CompleteProfile';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
+import axios from 'axios';
 import './Register.css';
 
-import { AuthContext } from '../AuthContext';
-
 const Register = () => {
-  const [nombre, setNombre] = useState('');
-  const [apellido, setApellido] = useState('');
-  const [dni, setDni] = useState('');
-  const [telefono, setTelefono] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    username: '',
+    nombre: '',
+    apellido: '',
+    dni: '',
+    telefono: '',
+    email: '',
+    password: ''
+  });
   const [showVerification, setShowVerification] = useState(false);
-  const [showCompleteProfile, setShowCompleteProfile] = useState(false);
-  const [socialData, setSocialData] = useState({});
   const [verificationCode, setVerificationCode] = useState('');
   const navigate = useNavigate();
-  const PREDEFINED_CODE = '123456'; // Código de verificación de prueba
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { login } = useAuth();
+  const PREDEFINED_CODE = '123456';
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Simular envío de código de verificación (TAREA2)
-    console.log(`Código de verificación enviado a ${email}. Código de prueba: ${PREDEFINED_CODE}`);
     setShowVerification(true);
   };
 
   const handleVerification = async (e) => {
     e.preventDefault();
-    // Validar el código de verificación (TAREA3)
-    if (verificationCode === PREDEFINED_CODE) {
-      try {
-        // Registrar usuario en el backend
-        const response = await axios.post('http://localhost:3001/usuarios', {
-          nombre,
-          apellido,
-          dni,
-          telefono,
-          email,
-          password
-        });
-        localStorage.setItem('user', JSON.stringify(response.data));
-        localStorage.setItem('isAuthenticated', 'true');
-        setIsAuthenticated(true);
-        alert('¡Registro y verificación exitosos! Redirigiendo a la pantalla de inicio.');
+    
+    if (verificationCode !== PREDEFINED_CODE) {
+      alert('Código de verificación incorrecto');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3001/users', {
+        ...formData,
+        social: false
+      });
+
+      if (response.status === 201) {
+        login(response.data);
         navigate('/activities');
-      } catch (error) {
-        alert('Error al registrar usuario en el backend.');
+      } else {
+        throw new Error('Error en el registro');
       }
-    } else {
-      alert('Código de verificación incorrecto. Inténtelo de nuevo.');
+    } catch (error) {
+      alert('Error al registrar usuario. Por favor, intente nuevamente.');
+      setShowVerification(false);
     }
   };
 
-  const handleSocialLogin = () => {
-    // Simular obtención de datos desde redes sociales
-    const socialUser = {
-      email: '', // Simular que solo se obtiene el email
-      nombre: '',
-      apellido: '',
-      dni: '',
-      telefono: ''
-    };
-    setSocialData(socialUser);
-    setShowCompleteProfile(true);
-  };
-
-  return (
-    <div className="auth-container">
-      <h2>Registro de Usuario</h2>
-      {showCompleteProfile ? (
-        <CompleteProfile initialData={socialData} />
-      ) : !showVerification ? (
-        <form onSubmit={handleRegister}>
-          <input
-            type="text"
-            placeholder="Nombre"
-            value={nombre}
-            onChange={e => setNombre(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Apellido"
-            value={apellido}
-            onChange={e => setApellido(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="DNI"
-            value={dni}
-            onChange={e => setDni(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Teléfono"
-            value={telefono}
-            onChange={e => setTelefono(e.target.value)}
-            required
-          />
-          <input
-            type="email"
-            placeholder="Correo electrónico"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit">Registrar</button>
-        </form>
-      ) : (
+  if (showVerification) {
+    return (
+      <div className="auth-container">
+        <h2>Verificación</h2>
         <form onSubmit={handleVerification}>
-          <p>Ingresa el código de verificación enviado a tu correo.</p>
+          <p>Se ha enviado un código de verificación a su correo electrónico.</p>
           <input
             type="text"
             placeholder="Código de verificación"
@@ -130,14 +72,74 @@ const Register = () => {
             onChange={(e) => setVerificationCode(e.target.value)}
             required
           />
-          <button type="submit">Validar Código</button>
+          <button type="submit">Verificar</button>
         </form>
-      )}
-
-      <div className="social-login">
-        <button onClick={handleSocialLogin}>Registrarse con Google</button>
-        <button onClick={handleSocialLogin}>Registrarse con Facebook</button>
       </div>
+    );
+  }
+
+  return (
+    <div className="auth-container">
+      <h2>Registro de Usuario</h2>
+      <form onSubmit={handleRegister}>
+        <input
+          type="text"
+          name="username"
+          placeholder="Nombre de usuario"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre"
+          value={formData.nombre}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="apellido"
+          placeholder="Apellido"
+          value={formData.apellido}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="dni"
+          placeholder="DNI"
+          value={formData.dni}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="telefono"
+          placeholder="Teléfono"
+          value={formData.telefono}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Correo electrónico"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Contraseña"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Registrar</button>
+      </form>
       <p>¿Ya tienes una cuenta? <Link to="/login">Inicia Sesión</Link></p>
     </div>
   );

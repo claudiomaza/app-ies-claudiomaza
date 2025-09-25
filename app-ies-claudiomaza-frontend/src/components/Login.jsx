@@ -5,32 +5,29 @@ import './Login.css';
 import { AuthContext } from '../AuthContext'; 
 
 const Login = () => {
-  const handleSocialLogin = () => {
-    // Simular inicio de sesión con redes sociales
-    localStorage.setItem('isAuthenticated', 'true');
-    setIsAuthenticated(true);
-    alert('Inicio de sesión con redes sociales simulado. Redirigiendo...');
-    navigate('/activities');
-  };
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { setIsAuthenticated } = useContext(AuthContext); 
+  const { login } = useContext(AuthContext);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-
-    if (storedUser && storedUser.email === email && storedUser.password === password) {
-      setIsAuthenticated(true); // Actualiza el estado global
-      alert('¡Inicio de sesión exitoso!');
-      console.log('Login exitoso. El estado es true.');
-
-      setTimeout(() => {
-          navigate('/activities');
-      }, 100); // 100 milisegundos de retraso
-    } else {
-      alert('Correo o contraseña incorrectos.');
+    setError('');
+    try {
+      const res = await fetch(`http://localhost:3001/users?email=${email}`);
+      const users = await res.json();
+      const user = users.find(u => u.email === email && u.password === password);
+      
+      if (user) {
+        login(user);
+        navigate('/activities');
+      } else {
+        setError('Correo o contraseña incorrectos.');
+      }
+    } catch (err) {
+      setError('Error de conexión al servidor.');
+      console.error('Error de login:', err);
     }
   };
 
@@ -54,10 +51,6 @@ const Login = () => {
         />
         <button type="submit">Iniciar Sesión</button>
       </form>
-      <div className="social-login">
-        <button onClick={handleSocialLogin}>Iniciar sesión con Google</button>
-        <button onClick={handleSocialLogin}>Iniciar sesión con Facebook</button>
-      </div>
       <p>¿No tienes una cuenta? <Link to="/">Regístrate</Link></p>
     </div>
   );
